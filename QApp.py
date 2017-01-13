@@ -178,8 +178,8 @@ def start_quiz():
 def saveUser(record):
     cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
-    add_employee = ("INSERT INTO usr "
-                    "(id, email, logtime) "
+    add_employee = ("INSERT INTO USR "
+                    "(ID, EMAIL, LOGTIME) "
                     "VALUES (%s, %s, %s)")
     data_employee = (record['id'], record['email'], datetime.now().isoformat())
     cursor.execute(add_employee, data_employee)
@@ -191,7 +191,7 @@ def saveSoundAnswer(record):
     cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     add_q = ("INSERT INTO SOUNDS "
-                    "(usr_id, snd_id, instrument, file, answer, logtime) "
+                    "(USR_ID, SND_ID, INSTRUMENT, FILE, ANSWER, LOGTIME) "
                     "VALUES (%s, %s, %s, %s, %s, %s)")
     data_q = (record['id'], record['entryId'], record['instrument'],
                      record['file'], record['answer'], datetime.now().isoformat())
@@ -204,7 +204,7 @@ def saveMetaAnswer(id, meta_id, map):
     cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     add_q = ("INSERT INTO META "
-                    "(usr_id, META_ID, answer, logtime) "
+                    "(USR_ID, META_ID, ANSWER, LOGTIME) "
                     "VALUES (%s, %s, %s, %s)")
     data_q = (id, meta_id, json.dumps(map), datetime.now().isoformat())
     cursor.execute(add_q, data_q)
