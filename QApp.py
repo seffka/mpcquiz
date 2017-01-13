@@ -16,11 +16,20 @@ def doReloadQuizEntries():
         parts = line.rstrip(os.linesep).split(' ')
         quizEntries.append({'instrument': parts[0], 'file': parts[1]})
 
+def dbConfig():
+    global db_config
+    filename = os.path.join(root_dir(), "db.json")
+    if (os.path.exists(filename)):
+        db_config = json.loads(open(filename).read())
+
 soundsRoot='https://raw.githubusercontent.com/seffka/sounds/master'
-db_user='mpc'
-db_password='mpc'
-db_host='127.0.0.1'
-database='mpc'
+db_config ={
+    'user':'mpc',
+    'password':'mpc',
+    'host':'127.0.0.1',
+    'database':'mpc'
+}
+dbConfig()
 
 app = Flask(__name__)
 quizEntries = []
@@ -167,9 +176,7 @@ def start_quiz():
 
 # DB
 def saveUser(record):
-    cnx = mysql.connector.connect(user=db_user, password=db_password,
-                                  host=db_host,
-                                  database=database)
+    cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     add_employee = ("INSERT INTO usr "
                     "(id, email, logtime) "
@@ -181,9 +188,7 @@ def saveUser(record):
     cnx.close()
 
 def saveSoundAnswer(record):
-    cnx = mysql.connector.connect(user=db_user, password=db_password,
-                                  host=db_host,
-                                  database=database)
+    cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     add_q = ("INSERT INTO SOUNDS "
                     "(usr_id, snd_id, instrument, file, answer, logtime) "
@@ -196,9 +201,7 @@ def saveSoundAnswer(record):
     cnx.close()
 
 def saveMetaAnswer(id, meta_id, map):
-    cnx = mysql.connector.connect(user=db_user, password=db_password,
-                                  host=db_host,
-                                  database=database)
+    cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     add_q = ("INSERT INTO META "
                     "(usr_id, META_ID, answer, logtime) "
@@ -210,9 +213,7 @@ def saveMetaAnswer(id, meta_id, map):
     cnx.close()
 
 def getNextEntry(id):
-    cnx = mysql.connector.connect(user=db_user, password=db_password,
-                                  host=db_host,
-                                  database=database)
+    cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
     query = "SELECT MAX(SND_ID) FROM SOUNDS WHERE USR_ID = '" + id + "'"
 
