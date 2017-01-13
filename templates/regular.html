@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guess the Instrument Quiz. Sounds {{ progress }}.</title>
+
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/hi.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+             <h3 class="text-muted"> Guess the Instrument Quiz {{ progress }} </h3>
+     </div>
+
+      <div class="jumbotron">
+          <p> Is it a <b>{{ instrument }}</b>?
+
+         <audio controls>
+             <source src="{{ soundsRoot }}/{{ wavFile }}" type="audio/wav">
+             Your browser does not support the audio element.
+           </audio>
+          </p>
+
+
+        <form class="form-signin" action="/next" method="post">
+        <input type="hidden" name="id" value="{{id}}" />
+        <input type="hidden" name="entryId" value="{{entryId}}" />
+        <button type="submit" name="submit" value="yes" class="btn btn-primary" data-placement="left">Yes</button>
+        <button type="submit" name="submit" value="no" class="btn btn-primary" data-placement="right">No&nbsp;</button>
+      </form>
+      </div>
+   </div>
+  </body>
+</html>

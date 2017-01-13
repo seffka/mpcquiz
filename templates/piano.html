@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guess the Instrument Quiz. Final (2/6).</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/quest.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+             <h3 class="text-muted"> Guess the Instrument Quiz. Final (2/6). </h3>
+     </div>
+
+     <div class="jumbotron">
+         <form class="form-signin" action="/savePiano" method="post">
+
+        <input type="hidden" name="id" value="{{id}}" />
+<p>Do you familiar with the sound of the piano? <br>
+ <input type="radio" name="piano" value="0" required> not until the experiment <br>
+ <input type="radio" name="piano" value="1" required> somewhat familiar <br>
+ <input type="radio" name="piano" value="2" required> quite familiar  <br>
+ <input type="radio" name="piano" value="3" required> know very good  <br>
+ <input type="radio" name="piano" value="4" required> expert
+</p>
+<p>Have you ever learn to play this instrument?
+    <input type="radio" name="pianoPractice" value="yes" required> Yes&nbsp;&nbsp;
+     <input type="radio" name="pianoPractice" value="no" required> No&nbsp;&nbsp;
+</p>
+<p>Do you practice playing piano now? <br>
+ <input type="radio" name="pianoNow" value="0" required> no  <br>
+ <input type="radio" name="pianoNow" value="1" required> less than hour in a month<br>
+ <input type="radio" name="pianoNow" value="2" required> more than hour in a month, but not every week<br>
+ <input type="radio" name="pianoNow" value="3" required> more than hour a week but less than hour a day<br>
+ <input type="radio" name="pianoNow" value="4" required> hour in a day or more
+</p>
+            <p>If possible, list 1-3 (the more the better) of the live performances you attend or records you've listened to where piano plays significant role. Try to identify them unambiguously  (Composer's name, name of the composition/album, name of the performer is fine, but other sufficient clues are ok).
+                <br>1.<input type="text" name="pianoAlbum1" value="">
+                <br>2.<input type="text" name="pianoAlbum2" value="">
+                <br>3.<input type="text" name="pianoAlbum3" value="">
+            </p>
+       <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+      </form>
+     </div>
+   </div>
+  </body>
+</html>

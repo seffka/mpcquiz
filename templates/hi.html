@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guess the Instrument Quiz</title>
+
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/hi.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+             <h3 class="text-muted"> Guess the Instrument Quiz </h3>
+     </div>
+
+      <div class="jumbotron">
+        <h1>Hello!</h1>
+          <p align="left">
+         We'd like to ask you to guess: excerpts from which instrument sounds are played:
+          </p>
+          <p align="left"> guitar, piano, tambura or harpsichord?
+          </p>
+          <p align="left">
+         Quizz contains a lot of questions, but we hope you spent no more than the second or two for the most of them
+         (because presented excerpts are quite short).
+          </p>
+          <p align="left">
+        Please, use your headphones, if possible. Play the following audio to setup playback volume to
+        make you fill comfortable. Avoid to change the volume during the further steps.
+        You'll also have a glimpse of how the target instruments should sound.
+          </p>
+          <p>
+         <audio controls>
+             <source src="{{ soundsRoot }}/intro.wav" type="audio/wav">
+             Your browser does not support the audio element.
+         </audio>
+          </p>
+          <p>
+          Enter your email (for identification purpose only):
+          </p>
+        <form class="form-signin" action="/start_quiz" method="post">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Let's Go >></button>
+      </form>
+      </div>
+   </div>
+  </body>
+</html>

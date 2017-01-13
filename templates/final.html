@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guess the Instrument Quiz. Final (6/6).</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+ <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/quest.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+             <h3 class="text-muted"> Guess the Instrument Quiz. Final (6/6). </h3>
+     </div>
+
+     <div class="jumbotron">
+        <form class="form-signin" action="/saveFinal" method="post">
+
+        <input type="hidden" name="id" value="{{id}}" />
+              <p>
+                Any oppinions, suggestions about the quiz? <br>
+                  <textarea id="suggestions" name="suggestions" rows="5" cols="40"></textarea>
+            </p>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+      </form>
+     </div>
+   </div>
+  </body>
+</html>

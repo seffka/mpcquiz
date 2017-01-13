@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Guess the Instrument Quiz. Final (1/5).</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/quest.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+             <h3 class="text-muted"> Guess the Intrument Quiz. Final (1/6). </h3>
+     </div>
+
+     <div class="jumbotron">
+          <p>
+              And now few questions about yourself.
+          </p>
+
+        <form class="form-signin" action="/saveQuest1" method="post">
+
+        <input type="hidden" name="id" value="{{id}}" />
+            <p>Age:<input type="number" name="age" value="" required></p>
+            <p>Sex: <input type="radio" name="gender" value="Male" required> Male&nbsp;&nbsp;
+ <input type="radio" name="gender" value="Female" required> Female&nbsp;&nbsp;
+ <input type="radio" name="gender" value="Other" required> Other&nbsp;&nbsp;
+</p>
+            <p>Country of Origin:<input type="text" name="country" value=""></p>
+           <p>Do you listen to music attentively? <br>
+ <input type="radio" name="attentively" value="0" required> no <br>
+ <input type="radio" name="attentively" value="1" required> less than hour in a month <br>
+ <input type="radio" name="attentively" value="3" required> more than hour in a month, but not every week<br>
+ <input type="radio" name="attentively" value="4" required> one hour in a week but less than hour a day<br>
+ <input type="radio" name="attentively" value="5" required> about hour in a day or more
+</p>
+           <p>Have you studied music?<br>
+ <input type="radio" name="studied" value="0" required> no<br>
+ <input type="radio" name="studied" value="1" required> music school/self taught < 1 year<br>
+ <input type="radio" name="studied" value="2" required> music school/self taught, 1-4 years<br>
+ <input type="radio" name="studied" value="3" required> music school >4 years<br>
+ <input type="radio" name="studied" value="4" required> conservatory/higher music education
+</p>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+      </form>
+     </div>
+   </div>
+  </body>
+</html>
