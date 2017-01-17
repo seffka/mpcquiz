@@ -7,6 +7,7 @@ import mysql.connector
 import json
 import sys
 import werkzeug
+import random
 
 def root_dir():  # pragma: no cover
     return os.path.abspath(os.path.dirname(__file__))
@@ -16,7 +17,10 @@ def doReloadQuizEntries():
     quizEntries = []
     for line in urllib2.urlopen(soundsRoot + '/quiz.txt'):
         parts = line.rstrip(os.linesep).split(' ')
-        quizEntries.append({'instrument': parts[0], 'file': parts[1]})
+        quizEntries.append({'instrument': parts[0], 'files': parts[1:]})
+
+def chooseFile(files):
+    return files[random.randint(0, len(files) - 1)]
 
 def dbConfig():
     global db_config
@@ -24,7 +28,7 @@ def dbConfig():
     if (os.path.exists(filename)):
         db_config = json.loads(open(filename).read())
 
-soundsRoot='https://raw.githubusercontent.com/seffka/sounds/master'
+soundsRoot='https://raw.githubusercontent.com/seffka/sounds/master/audio_files'
 db_config ={
     'user':'mpc',
     'password':'mpc',
@@ -68,7 +72,7 @@ def next_form():
         'id':id,
         'entryId':entryId,
         'instrument':quizEntries[entryId]['instrument'],
-        'file':quizEntries[entryId]['file'],
+        'file':chooseFile(quizEntries[entryId]['files']),
         'answer':yesNo}
     try:
         saveSoundAnswer(answer)
@@ -90,7 +94,7 @@ def regularForm(templateName, id, entryId):
         id=id,
         entryId=entryId,
         instrument=quizEntries[entryId]['instrument'],
-        wavFile=quizEntries[entryId]['file'],
+        wavFile=chooseFile(quizEntries[entryId]['files']),
         progress = progress)
 
 def missedValuePage(val):
