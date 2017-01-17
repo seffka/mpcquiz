@@ -5,6 +5,8 @@ import os
 import urllib2
 import mysql.connector
 import json
+import sys
+import werkzeug
 
 def root_dir():  # pragma: no cover
     return os.path.abspath(os.path.dirname(__file__))
@@ -68,7 +70,11 @@ def next_form():
         'instrument':quizEntries[entryId]['instrument'],
         'file':quizEntries[entryId]['file'],
         'answer':yesNo}
-    saveSoundAnswer(answer)
+    try:
+        saveSoundAnswer(answer)
+    except:
+        print sys.exc_info()[0]
+
     entryId = getNextEntry(id)
     print 'now entryId: ', entryId
     if (entryId < len(quizEntries)):
@@ -87,77 +93,101 @@ def regularForm(templateName, id, entryId):
         wavFile=quizEntries[entryId]['file'],
         progress = progress)
 
+def missedValuePage(val):
+    return render_template("back.html", errorMessage='Please, go back and fill the mandatory field:' + val)
 
 def finalForm(id):
     return render_template("quest1.html", id=id)
 
 @app.route('/saveQuest1', methods=['POST'])
 def saveQuest1():
-    id = request.form['id']
-    answer = {
-        'age':request.form['age'],
-        'gender': request.form['gender'],
-        'attentively': request.form['attentively'],
-        'studied': request.form['studied']
-    }
-    saveMetaAnswer(id, "personal", answer)
-    return render_template("piano.html", id=id)
+    try:
+        id = request.form['id']
+        answer = {
+            'age':request.form['age'],
+            'gender': request.form['gender'],
+            'country': request.form['country'],
+            'attentively': request.form['attentively'],
+            'studied': request.form['studied']
+        }
+        if (not answer['age']):
+            return missedValuePage('age')
+
+        if (not answer['country']):
+            return missedValuePage('country')
+
+        saveMetaAnswer(id, "personal", answer)
+        return render_template("piano.html", id=id)
+    except werkzeug.exceptions.BadRequestKeyError:
+        return missedValuePage(sys.exc_info()[1].message)
 
 @app.route('/savePiano', methods=['POST'])
 def savePiano():
-    id = request.form['id']
-    answer = {
-        'piano':request.form['piano'],
-        'pianoPractice': request.form['pianoPractice'],
-        'pianoNow': request.form['pianoNow'],
-        'pianoAlbum1': request.form['pianoAlbum1'],
-        'pianoAlbum2': request.form['pianoAlbum2'],
-        'pianoAlbum3': request.form['pianoAlbum3']
-    }
-    saveMetaAnswer(id, "piano", answer)
-    return render_template("guitar.html", id=id)
+    try:
+        id = request.form['id']
+        answer = {
+             'piano':request.form['piano'],
+             'pianoPractice': request.form['pianoPractice'],
+             'pianoNow': request.form['pianoNow'],
+             'pianoAlbum1': request.form['pianoAlbum1'],
+             'pianoAlbum2': request.form['pianoAlbum2'],
+             'pianoAlbum3': request.form['pianoAlbum3']
+        }
+        saveMetaAnswer(id, "piano", answer)
+        return render_template("guitar.html", id=id)
+    except werkzeug.exceptions.BadRequestKeyError:
+        return missedValuePage(sys.exc_info()[1].message)
 
 @app.route('/saveGuitar', methods=['POST'])
 def saveGuitar():
-    id = request.form['id']
-    answer = {
-        'guitar':request.form['guitar'],
-        'guitarPractice': request.form['guitarPractice'],
-        'guitarNow': request.form['guitarNow'],
-        'guitarAlbum1': request.form['guitarAlbum1'],
-        'guitarAlbum2': request.form['guitarAlbum2'],
-        'guitarAlbum3': request.form['guitarAlbum3']
-    }
-    saveMetaAnswer(id, "guitar", answer)
-    return render_template("tambura.html", id=id)
+    try:
+        id = request.form['id']
+        answer = {
+           'guitar':request.form['guitar'],
+            'guitarPractice': request.form['guitarPractice'],
+            'guitarNow': request.form['guitarNow'],
+            'guitarAlbum1': request.form['guitarAlbum1'],
+            'guitarAlbum2': request.form['guitarAlbum2'],
+            'guitarAlbum3': request.form['guitarAlbum3']
+        }
+        saveMetaAnswer(id, "guitar", answer)
+        return render_template("tambura.html", id=id)
+    except werkzeug.exceptions.BadRequestKeyError:
+        return missedValuePage(sys.exc_info()[1].message)
 
 @app.route('/saveTambura', methods=['POST'])
 def saveTambura():
-    id = request.form['id']
-    answer = {
-        'tambura':request.form['tambura'],
-        'tamburaPractice': request.form['tamburaPractice'],
-        'tamburaNow': request.form['tamburaNow'],
-        'tamburaAlbum1': request.form['tamburaAlbum1'],
-        'tamburaAlbum2': request.form['tamburaAlbum2'],
-        'tamburaAlbum3': request.form['tamburaAlbum3']
-    }
-    saveMetaAnswer(id, "tambura", answer)
-    return render_template("harpsichord.html", id=id)
+    try:
+        id = request.form['id']
+        answer = {
+            'tambura':request.form['tambura'],
+            'tamburaPractice': request.form['tamburaPractice'],
+            'tamburaNow': request.form['tamburaNow'],
+            'tamburaAlbum1': request.form['tamburaAlbum1'],
+            'tamburaAlbum2': request.form['tamburaAlbum2'],
+            'tamburaAlbum3': request.form['tamburaAlbum3']
+        }
+        saveMetaAnswer(id, "tambura", answer)
+        return render_template("harpsichord.html", id=id)
+    except werkzeug.exceptions.BadRequestKeyError:
+        return missedValuePage(sys.exc_info()[1].message)
 
 @app.route('/saveHarpsichord', methods=['POST'])
 def saveHarpsichord():
-    id = request.form['id']
-    answer = {
-        'harpsichord':request.form['harpsichord'],
-        'harpsichordPractice': request.form['harpsichordPractice'],
-        'harpsichordNow': request.form['harpsichordNow'],
-        'harpsichordAlbum1': request.form['harpsichordAlbum1'],
-        'harpsichordAlbum2': request.form['harpsichordAlbum2'],
-        'harpsichordAlbum3': request.form['harpsichordAlbum3']
-    }
-    saveMetaAnswer(id, "harpsichord", answer)
-    return render_template("final.html", id=id)
+    try:
+        id = request.form['id']
+        answer = {
+            'harpsichord':request.form['harpsichord'],
+            'harpsichordPractice': request.form['harpsichordPractice'],
+            'harpsichordNow': request.form['harpsichordNow'],
+            'harpsichordAlbum1': request.form['harpsichordAlbum1'],
+            'harpsichordAlbum2': request.form['harpsichordAlbum2'],
+            'harpsichordAlbum3': request.form['harpsichordAlbum3']
+        }
+        saveMetaAnswer(id, "harpsichord", answer)
+        return render_template("final.html", id=id)
+    except werkzeug.exceptions.BadRequestKeyError:
+        return missedValuePage(sys.exc_info()[1].message)
 
 @app.route('/saveFinal', methods=['POST'])
 def saveFinal():
@@ -171,6 +201,9 @@ def saveFinal():
 @app.route('/start_quiz', methods=['POST'])
 def start_quiz():
     email = request.form['inputEmail']
+    if (not email):
+        return missedValuePage('EMail')
+
     id = addEmail(email)
     return regularForm('sample.html', id, 0)
 
